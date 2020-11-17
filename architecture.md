@@ -121,3 +121,8 @@
   - Network Bandwidth Quotas
   - Request Rate Quotas
   - Enforcement
+
+- Role of Zookeeper
+  - Kafka Controller maintains leadership through Zookeeper
+  - Kafka Brokers also store other relevant metadata in Zookeeper
+  - Kafka Partitions maintain replica information in Zookeeper
