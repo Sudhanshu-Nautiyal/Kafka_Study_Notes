@@ -140,6 +140,15 @@ KStream-to-GlobalKTable|	Non-windowed|	Supported|	Supported|	Not Supported
 KTable-to-GlobalKTable|	N/A|	Not Supported	|Not Supported	|Not Supported
 
 
+#### Windowing
+
+Window name	|Behavior|	Short description|
+-|-|-
+Hopping time window	|Time-based	|Fixed-size, overlapping windows (wall timestamp)
+Tumbling time window|	Time-based|	Fixed-size, non-overlapping, gap-less windows
+Sliding time window	|Time-based	|Fixed-size, overlapping windows that work on differences between record timestamps
+Session window|	Session-based|	Dynamically-sized, non-overlapping, data-driven windows
+
 
 #### Resources
   - https://kafka.apache.org/11/documentation/streams/developer-guide/dsl-api
