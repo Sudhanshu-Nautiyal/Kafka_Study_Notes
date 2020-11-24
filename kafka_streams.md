@@ -94,6 +94,60 @@
     - Each thread can execute one or more tasks with their processor topologies independently
 
 
-- Resources
+#### Stateless Operators
+
+|Type |Transformation
+-|-
+Branch| KStream → KStream[]
+Filter|KStream → KStream, KTable → KTable
+Inverse Filter|KStream → KStream, KTable → KTable
+FlatMap|KStream → KStream
+FlatMap (values only)|KStream → KStream
+Foreach|KStream → void , KStream → void, KTable → void
+GroupByKey|KStream → KGroupedStream
+GroupBy|KStream → KGroupedStream, KTable → KGroupedTable
+Cogroup|KGroupedStream → CogroupedKStream, CogroupedKStream → CogroupedKStream
+Map|KStream → KStream
+Map(Values only)|KStream → KStream, KTable → KTable
+Merge|KStream → KStream
+Peek|KStream → KStream
+Print|KStream → void
+SelectKey|KStream → KStream
+Table to Stream|KTable → KStream
+Stream to Table|KStream → KTable
+Repartition|KStream → KStream
+
+
+#### Stateful Operators
+
+|Type|Transformation
+-|-
+Aggregate|KGroupedStream → KTable, KGroupedTable → KTable
+Aggregate (windowed)|KGroupedStream → KTable
+Count|KGroupedStream → KTable, KGroupedTable → KTable
+Count (windowed)|KGroupedStream → KTable
+Reduce|KGroupedStream → KTable, KGroupedTable → KTable
+Reduce (windowed)|KGroupedStream → KTable
+
+#### Joins
+Join operands|	Type|	(INNER) JOIN|	LEFT JOIN|	OUTER JOIN
+-|-|-|-|-
+KStream-to-KStream|	Windowed|	Supported|	Supported|	Supported
+KTable-to-KTable|	Non-windowed|	Supported|	Supported|	Supported
+KTable-to-KTable(Foreign-Key Join)|	Non-windowed|	Supported|	Supported	|Not Supported
+KStream-to-KTable|	Non-windowed|	Supported|	Supported|	Not Supported
+KStream-to-GlobalKTable|	Non-windowed|	Supported|	Supported|	Not Supported
+KTable-to-GlobalKTable|	N/A|	Not Supported	|Not Supported	|Not Supported
+
+
+
+#### Resources
   - https://kafka.apache.org/11/documentation/streams/developer-guide/dsl-api
   - https://medium.com/@andy.bryant/kafka-streams-work-allocation-4f31c24753cc
+  - https://www.michael-noll.com/blog/2018/04/05/of-stream-and-tables-in-kafka-and-stream-processing-part1/
+  - https://www.confluent.io/blog/kafka-streams-tables-part-1-event-streaming/
+
+#### KIPs
+  - https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Streams
+  - https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Streams+Internal+Data+Management
+  -

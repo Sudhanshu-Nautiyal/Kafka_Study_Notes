@@ -31,5 +31,39 @@
   - **FULL_TRANSITIVE** : backward and forward compatibile between schemas X, X-1, and X-2
   - **NONE** : compatibility type means schema compatibility checks are disabled.
 
-- Resources
+
+#### AVRO
+
+- Data types supported
+  - Primitive Types
+    - null , boolean, int, long, float, double, string, bytes
+  - Complex
+    - Records, Enums, Arrays, Maps, Unions, Fixed
+- Avro Schema Definition
+
+```
+namespace (required)
+type (required) => record, enum, array, map, union, fixed
+name (required)
+doc (optional)
+aliases (optional)
+fields (required) {
+    name (required)
+    type (required)
+    doc (optional)
+    default (optional)
+    order (optional)
+    aliases (optional)
+}
+```
+
+#### Notes
+- Schema Registry stores all schemas in a Kafka topic **_schemas** defined by kafkastore.config = _schemas (default) which is a single partition topic with log compacted.
+- HTTP and HTTPS client protocol are supported for schema registry.
+- Default port for listener is 8081
+- The default response media type application/vnd.schemaregistry.v1+json, application/vnd.schemaregistry+json, application/json are used in response header.
+
+
+#### Resources
+
  - https://docs.confluent.io/current/schema-registry/
