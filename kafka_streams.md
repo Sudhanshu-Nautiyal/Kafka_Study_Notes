@@ -139,6 +139,13 @@ KStream-to-KTable|	Non-windowed|	Supported|	Supported|	Not Supported
 KStream-to-GlobalKTable|	Non-windowed|	Supported|	Supported|	Not Supported
 KTable-to-GlobalKTable|	N/A|	Not Supported	|Not Supported	|Not Supported
 
+Join Operands||	Output	Type|	co-partition required|	Join Type
+-|-|-|-|-
+KStream-to-KStream|	KStream|	Windowed	|Yes|	key and window based
+KTable-to-KTable|	KTable|	Non-windowed|	Yes	|key or foreign-key based
+KStream-to-KTable	|KStream|	Non-windowed|	Yes	|key based
+KStream-to-GlobalKTable|KStream	|Non-windowed	|No|	key or foreign-key based
+
 
 #### Windowing
 

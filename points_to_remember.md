@@ -9,6 +9,18 @@
 - We can only add partitions to an existing topic, and it must be done using the kafka-topics.sh command
 - Default port of KSQL server is 8088
 
+- Dynamic topic and broker configs are stored in zookeeper and doesn't need restart
+- acks is a producer setting min.insync.replicas is a topic or broker setting and is only effective when acks=all
+
+- In case the consumer or producer has the wrong leader of a partition, it will issue a metadata request. The Metadata request can be handled by any node, so clients know afterwards which broker are the designated leader for the topic partitions. Produce and consume requests can only be sent to the node hosting partition leader.
+
+- ACLs are stored in zookeeper under `/kafka-acl/` node by default
+
+#### Retriable ERRORS
+
+- https://kafka.apache.org/protocol#protocol_error_codes
+
+
 
 #### Default ports
 
@@ -19,6 +31,11 @@
 - REST Proxy: 8082
 - Schema Registry: 8081
 - KSQL: 8088
+
+
+#### Kakfa meta topics
+- __consumer_offsets
+- _schemas
 
 
 - Tests

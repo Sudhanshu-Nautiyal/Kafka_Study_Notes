@@ -31,6 +31,11 @@
   - **FULL_TRANSITIVE** : backward and forward compatibile between schemas X, X-1, and X-2
   - **NONE** : compatibility type means schema compatibility checks are disabled.
 
+- Easy to remember
+  - Can you read old data with this schema ? -> backward compatible
+  - Can this data be read by previous schema ? -> forward compatible
+
+
 
 #### AVRO
 
@@ -61,7 +66,11 @@ fields (required) {
 - Schema Registry stores all schemas in a Kafka topic **_schemas** defined by kafkastore.config = _schemas (default) which is a single partition topic with log compacted.
 - HTTP and HTTPS client protocol are supported for schema registry.
 - Default port for listener is 8081
-- The default response media type application/vnd.schemaregistry.v1+json, application/vnd.schemaregistry+json, application/json are used in response header.
+- The default response media type **application/vnd.schemaregistry.v1+json**, **pplication/vnd.schemaregistry+json**, application/json are used in response header.
+
+
+#### Sample scenarios
+- In Avro, adding a field to a record without default is a `forward` schema evolution
 
 
 #### Resources

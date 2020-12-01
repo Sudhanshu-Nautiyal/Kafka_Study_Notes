@@ -130,3 +130,16 @@
   - reconnect.backoff.max.ms
   - reconnect.backoff.ms
   - retry.backoff.ms
+
+#### Common syntax
+
+- Subscribe to topic/s
+```
+consumer.subscribe(Collection<String> topics)
+consumer.subscribe(Pattern)
+```
+
+- Assign topic-partitions
+```
+consumer.assign(Collection<TopicPartitions>)
+```

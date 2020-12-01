@@ -121,3 +121,18 @@ Processing|Zero or one time|One or more times|Exactly one time
   - transaction.timeout.ms
   - transactional.id
   - other security related configs
+
+#### Retryable exceptions
+
+- https://kafka.apache.org/protocol#protocol_error_codes
+
+#### Mandatory Producer Config required
+- bootstrap.servers
+- key.serializer
+- value.serializer
+
+#### Idempotent producer
+- `enable.idempotence` when set to 'true', the producer will ensure that exactly one copy of each message is written in the stream. If 'false', producer retries due to broker failures, etc., may write duplicates of the retried message in the stream. Note that enabling idempotence requires max.in.flight.requests.per.connection to be less than or equal to 5, retries to be greater than 0 and acks must be 'all'. If these values are not explicitly set by the user, suitable values will be chosen. If incompatible values are set, a ConfigException will be thrown.
+
+#### When is message order not preserved
+- When `max.in.flight.requests.per.connection` > 1 and `retries` is enabled then there is a risk of message order not getting preserved. An exception to this rule is if you enable the producer setting: enable.idempotence=true which takes care of the out of ordering case on its own

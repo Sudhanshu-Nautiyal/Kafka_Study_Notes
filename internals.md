@@ -11,6 +11,7 @@
 - additional responsibility
   - electing partition leaders
   -  first broker that starts in the cluster becomes the controller by creating an ephemeral node in ZooKeeper called /controller
+- Elected by zookeeper ensemble
 - Kafka uses Zookeeper’s ephemeral node feature to elect a controller and to notify the controller when nodes join and leave the cluster. The controller is responsible for electing leaders among the partitions and replicas whenever it notices nodes join and leave the cluster.
 - Each time a controller is elected, it receives a new, higher controller epoch number through a Zookeeper con‐ ditional increment operation.
 - The controller uses the epoch number to prevent a “split brain” scenario where two nodes believe each is the current controller.
@@ -78,7 +79,7 @@
   - The segment index maps offsets to their message’s position in the segment log.
   - The index file is memory mapped, and the offset look up uses binary search to find the nearest offset less than or equal to the target offset.
 
-  
+
 ```
 Kafka directory structure and files
 $ tree test-topic*
