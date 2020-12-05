@@ -16,6 +16,23 @@
 
 - ACLs are stored in zookeeper under `/kafka-acl/` node by default
 
+
+- A kafka broker automatically creates a topic under the following circumstances :
+  - Client requests metadata
+  - Producer sends message to a topic
+  - Consumer reads message from a topic
+
+- In Kafka Streams, the application.id is also the underlying group.id for your consumers, and the prefix for all internal topics (repartition and state)
+
+- subscribe() and assign() cannot be called by the same consumer, subscribe() is used to leverage the consumer group mechanism, while assign() is used to manually control partition assignment and reads assignment -> will throw IllegalStateException
+
+- Apache Kafka doesn't support decreasing the partition number.
+- Consumers do not directly write to the __consumer_offsets topic, they instead interact with a broker that has been elected to manage that topic, which is the Group Coordinator broker committing offsets
+- Sending a message with the null value is called a tombstone in Kafka and will ensure the log compacted topic does not contain any messages with the key K upon compaction
+- Message with no keys will be stored with round-robin strategy among partitions.
+- Producer idempotence helps prevent the network introduced duplicates.
+- min.insync.replicas does not impact producers when acks=1 (only when acks=all)
+
 #### Retriable ERRORS
 
 - https://kafka.apache.org/protocol#protocol_error_codes
@@ -36,6 +53,8 @@
 #### Kakfa meta topics
 - __consumer_offsets
 - _schemas
+
+
 
 
 - Tests

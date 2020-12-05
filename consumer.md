@@ -70,6 +70,15 @@
   - onPartitionsRevoked
   - onPartitionsAssigned
 
+#### Rebalance triggers
+
+- Number of partitions change for any of the subscribed list of topics
+- Topic is created or deleted
+- An existing member of the consumer group dies/ leaves group
+- A new member is added to an existing consumer group via the join API
+- Poll not getting called
+  - After subscribing to a set of topics, the consumer will automatically join the group when poll(long) is invoked. The poll API is designed to ensure consumer liveness. As long as you continue to call poll, the consumer will stay in the group and continue to receive messages from the partitions it was assigned. Underneath the covers, the poll API sends periodic heartbeats to the server; when you stop calling poll (perhaps because an exception was thrown), then no heartbeats will be sent. If a period of the configured session timeout elapses before the server has received a heartbeat, then the consumer will be kicked out of the group and its partitions will be reassigned.
+
 #### Consuming Records with Specific Offsets
 - use poll() to start consuming messages from the last com‐ mitted offset in each partition and to proceed in processing all messages in sequence. However, sometimes you want to start reading at a different offset.
 - If you want to start reading all messages from the beginning of the partition, or you want to skip all the way to the end of the partition and start consuming only new messages, there are APIs specifically for that: seekToBeginning(TopicPartition tp) and seekToEnd(TopicPartition tp).
@@ -140,6 +149,11 @@ consumer.subscribe(Pattern)
 ```
 
 - Assign topic-partitions
+
 ```
 consumer.assign(Collection<TopicPartitions>)
 ```
+
+#### Notes
+
+- The high watermark is advanced once all the ISR replicates the latest offsets. A consumer can only read up to the value of the High Watermark (which can be less than the highest offset, in the case of acks=1)

@@ -32,9 +32,13 @@
   - **NONE** : compatibility type means schema compatibility checks are disabled.
 
 - Easy to remember
-  - Can you read old data with this schema ? -> backward compatible
-  - Can this data be read by previous schema ? -> forward compatible
+  - Can you process old data with new schema ? -> backward compatible
+  - Can new data be processed by previous schema ? -> forward compatible
 
+- Compatibity examples
+  - Delete a field without default value in Avro schema is …… compatibility? -> backward
+  - Adding a field to record without default value is …… schema evolution? -> forward
+  - removing or adding a field that has a default value is a …… schema evolution? -> full
 
 
 #### AVRO
@@ -62,11 +66,19 @@ fields (required) {
 }
 ```
 
+- Avro Specific vs Generic Record
+  - Specific Record
+    - SpecificRecord Avro bindings make use of classes that are generated from your schema specifications with the Maven Avro Plugin. These generated classes allow us to manage the fields in our Avro schema using getter and setter methods in the code in our Kafka application, making programming feel a bit more familiar. The SpecificRecord API offers static compile time type safety checks and provides integrity for using correct field names and datatypes. We see the SpecificRecord API used for most RPC uses and for data applications that always use the same datatypes (e.g., "schemas are known at compile time")
+  - Generic Record
+    - The Avro GenericRecord binding is a general-purpose binding which indentifies fields to be read and written by supplying a simple string that names the field, as can see in the example schema code section shown below. Generic record bindings provide the widest support for the Avro data types, which is helpful if your store has a constantly expanding set of schema
+
 #### Notes
 - Schema Registry stores all schemas in a Kafka topic **_schemas** defined by kafkastore.config = _schemas (default) which is a single partition topic with log compacted.
 - HTTP and HTTPS client protocol are supported for schema registry.
 - Default port for listener is 8081
 - The default response media type **application/vnd.schemaregistry.v1+json**, **pplication/vnd.schemaregistry+json**, application/json are used in response header.
+
+-
 
 
 #### Sample scenarios
