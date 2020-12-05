@@ -36,9 +36,17 @@
 
   - Types :
     - Tumbling time windows
+      - Time based, Fixed Size, Non overlapping, Gap less windows
+      - For e.g. if window-size=5min and advance-interval =5min then it looks like [0-5min] [5min-10min] [10min-15min]…..
     - Hopping time windows
+      - Time based, Fixed Size, Overlapping windows
+      - For e.g. if widow-size=5min and advance-interval=3min then it looks like [0-5min] [3min-8min] [6min-11min]……
     - Sliding time windows
+      - Fixed size overlapping window that works on the difference between record timestamp
+      - Used only for join operation
     - Session Windows
+      - Session based, Dynamically sized, Non overlapping, Data driven window.
+      - Used to aggregate key based events into session.
 
 
 - Duality of Streams and Tables
@@ -156,6 +164,27 @@ Tumbling time window|	Time-based|	Fixed-size, non-overlapping, gap-less windows
 Sliding time window	|Time-based	|Fixed-size, overlapping windows that work on differences between record timestamps
 Session window|	Session-based|	Dynamically-sized, non-overlapping, data-driven windows
 
+#### Streams DSL
+
+- **KStream**
+  - Abstraction of **record stream** from subset of partitions of topic
+  - In database table analogy, interpreted as **INSERT** statement
+  - In an e-commerce application, any type of transactions like purchase, payment should be modeled as KStream
+- **KTable**
+  - Abstraction of **changelog stream** from subset of partitions of topic
+  - In database table analogy, interpreted as **UPDATE** statement
+  - In an e-commerce application, mostly static data like inventory list, customer list and aggregated data like total sales should be modeled as KTable
+- **GlobalKTable**
+  - Abstraction of **changelog stream** from all partitions of topic
+  - In database table analogy, interpreted as **UPDATE** statement
+
+#### Join Operands
+Join Operands	|Output	|Type|	co-partition required|	Join Type
+-|-|-|-|-
+KStream-to-KStream|	KStream|	Windowed|	Yes	|key and window based
+KTable-to-KTable|	KTable|	Non-windowed|	Yes|key or foreign-key based
+KStream-to-KTable|	KStream|Non-windowed|	Yes	|key based
+KStream-to-GlobalKTable|	KStream|	Non-windowed|	No|	key or foreign-key based
 
 #### Resources
   - https://kafka.apache.org/11/documentation/streams/developer-guide/dsl-api
