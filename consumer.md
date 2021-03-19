@@ -167,3 +167,5 @@ consumer.assign(Collection<TopicPartitions>)
 #### Notes
 
 - The high watermark is advanced once all the ISR replicates the latest offsets. A consumer can only read up to the value of the High Watermark (which can be less than the highest offset, in the case of acks=1)
+- A topic has three replicas and you set min.insync.replicas to 2. If two out of three replicas are not available, what happens when a consume request is sent to broker?A topic has three replicas and you set min.insync.replicas to 2. If two out of three replicas are not available, what happens when a consume request is sent to broker?
+  - With this configuration, a single in-sync replica is still readable, but not writeable if the producer using acks=all
